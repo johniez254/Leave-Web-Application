@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="employeeMapper">
+
+	<resultMap type="leave" id="leaveMap">
+		<id property="leave_id" column="leave_id"/>
+		<result property="employee_id" column="employee_id"></result>
+		<result property="leave_type" column="leave_type"></result>
+		<result property="leave_status" column="leave_status"></result>
+		<result property="start_date" column="start_date"></result>
+		<result property="end_date" column="end_date"></result>
+		<result property="days_requested" column="days_requested"></result>
+		<result property="remarks" column="remarks"></result>
+	</resultMap>
+	
+	<resultMap type="employees" id="employeeMap">
+		<id property="employee_id" column="employee_id"/>
+		<result property="firstname" column="firstname"></result>
+		<result property="lastname" column="lastname"></result>
+		<result property="job_title" column="job_title"></result>
+		<result property="personal_no" column="personal_no"></result>
+		<result property="grade" column="grade"></result>
+		<result property="department" column="department"></result>
+		<result property="address" column="address"></result>
+		<result property="phone" column="phone"></result>
+		<result property="date_created" column="date_created"></result>
+	</resultMap>
+	
+	<insert id="insertLeave"  parameterType="leave" keyProperty="leave_id" useGeneratedKeys="true">
+		INSERT INTO `leave`(employee_id,leave_type,start_date,end_date,days_requested)
+		VALUES(#{employee_id},#{leave_type},#{start_date},#{end_date},#{days_requested})
+	</insert>
+	
+	<select id="getAllLeaves" resultMap="leaveMap">
+		SELECT * FROM `leave`
+	</select>
+	
+	<select id="getEmployeeById" parameterType="int" resultMap="employeeMap">
+		SELECT * FROM employees WHERE employee_id = #{employee_id}
+	</select>
+	
+</mapper>
